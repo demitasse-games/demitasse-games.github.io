@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PokerShiftRogue</title>
+<!--
+  結果の共有画像に載せた読み取りコードの行き先。
+
+  ストアの URL を画像に直に埋めない代わりの1枚。一度共有された画像は
+  後から直せないので、行き先を変えたくなったとき(ウェブ版を足す・
+  ストアを移す)に **ここだけ直せば過去の投稿も生き続ける**。
+
+  振り分けはブラウザ側でやる。GitHub Pages は静的で、サーバー側で
+  User-Agent を見る口が無いため。
+-->
+<style>
+  :root { color-scheme: light dark; }
+  body { margin:0; min-height:100dvh; display:grid; place-items:center;
+    font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;
+    background:#0E2A22; color:#EDE6D6; text-align:center; padding:24px; }
+  a { color:#F2D98B; }
+  .row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+    margin-top:20px; }
+  .btn { display:block; padding:12px 20px; border:1px solid #F2D98B;
+    border-radius:10px; text-decoration:none; }
+  .note { opacity:.7; font-size:.9rem; margin-top:22px; }
+</style>
+<main>
+  <h1>POKER SHIFT ROGUE</h1>
+  <p id="msg">お使いの端末に合わせて移動します…</p>
+  <div class="row" id="links" hidden>
+    <a class="btn" id="a-and" href="#">Android</a>
+    <a class="btn" id="a-ios" href="#">iPhone / iPad</a>
+    <a class="btn" id="a-web" href="#">ブラウザで遊ぶ</a>
+  </div>
+  <p class="note">
+    自動で移動しないときは、上から選んでください。<br>
+    <a href="../privacy/">プライバシーポリシー</a>
+  </p>
+</main>
+<script>
+  // **行き先はここだけを直す。**
+  // 公開前は 404 になる。公開したら値をそのままにしておけばよい
+  // (URL はアプリの ID から決まるので、公開前から確定している)。
+  var DEST = {
+    android: 'https://play.google.com/store/apps/details?id=com.itotaku.pokershiftrogue',
+    ios:     'https://apps.apple.com/app/id0000000000',  // 公開時に差し替える
+    web:     'https://demitasse-games.github.io/pokershiftrogue/'
+  };
+
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/.test(ua);
+
+  document.getElementById('a-and').href = DEST.android;
+  document.getElementById('a-ios').href = DEST.ios;
+  document.getElementById('a-web').href = DEST.web;
+
+  var to = isAndroid ? DEST.android : (isIOS ? DEST.ios : DEST.web);
+
+  // **すぐ飛ばさない。** 戻るボタンで元の投稿へ戻れるよう replace を使い、
+  // 一瞬でも「何のページか」が読めるように少しだけ待つ。
+  setTimeout(function () { location.replace(to); }, 400);
+
+  // 飛べなかったとき(ストアが無い・ブロックされた)に選べるようにする。
+  setTimeout(function () {
+    document.getElementById('msg').textContent = '移動できませんでした。';
+    document.getElementById('links').hidden = false;
+  }, 2500);
+</script>
