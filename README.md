@@ -18,6 +18,14 @@ python3 tool/gen_privacy_page.py
 cp build/privacy/index.html <ここ>/pokershiftrogue/privacy/index.html
 ```
 
+CHROMA RUSH は同じ考え方で、ゲーム側の `docs/privacy-policy.md` から作る。
+
+```sh
+cd <chroma-rush>
+npm run privacy
+cp build/privacy/index.html <ここ>/chromarush/privacy/index.html
+```
+
 **書いてある内容と実装が食い違うのが、審査でも規約でもいちばん重い。**
 写しを2つ持つと、片方だけ直したときに必ずずれる。
 
