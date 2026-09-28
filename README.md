@@ -4,6 +4,9 @@ DEMITASSE Games の公開ページ。**プライバシーポリシーの掲載�
 
 - PokerShiftRogue: `pokershiftrogue/privacy/index.html`
   → <https://demitasse-games.github.io/pokershiftrogue/privacy/>
+- PokerShiftRogue のサポート(App Store のサポートURL): `pokershiftrogue/support/index.html`
+  → <https://demitasse-games.github.io/pokershiftrogue/support/>
+  文面はゲーム側の `docs/support.md`。`python3 tool/gen_privacy_page.py --src docs/support.md --out <ここ>/pokershiftrogue/support/index.html --title "PokerShiftRogue サポート / Support"`
 - PokerShiftRogue の使用ソフトウェアの権利表記: `pokershiftrogue/licenses/index.html`
   → <https://demitasse-games.github.io/pokershiftrogue/licenses/>
 
