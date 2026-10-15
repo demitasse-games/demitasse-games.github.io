@@ -32,7 +32,7 @@
   <div class="row" id="links" hidden>
     <a class="btn" id="a-and" href="#">Android</a>
     <a class="btn" id="a-ios" href="#">iPhone / iPad</a>
-    <a class="btn" id="a-web" href="#">ブラウザで遊ぶ</a>
+    <a class="btn" id="a-web" href="#">紹介動画を見る</a>
   </div>
   <p class="note">
     自動で移動しないときは、上から選んでください。<br>
@@ -46,8 +46,15 @@
   var DEST = {
     android: 'https://play.google.com/store/apps/details?id=com.demitassegames.pokershiftrogue',
     ios:     'https://apps.apple.com/app/id6816996442',  // 2026-10-14 に公開(App Store の番号)
-    web:     'https://demitasse-games.github.io/pokershiftrogue/'
+    // パソコンなど(スマホでもタブレットでもない)は YouTube の紹介動画(2026-10-15 本人
+    // 「YouTubeのPV。言語で割り振りできるなら、日本->日本語、それ以外->英語」)。
+    // 割り振りはブラウザの言語の設定の1番目で見る。
+    webJa:   'https://youtu.be/pq5UATR95iY',
+    webEn:   'https://youtu.be/KLWiQQEUXa4'
   };
+  var lang = ((navigator.languages && navigator.languages[0]) ||
+    navigator.language || '').toLowerCase();
+  DEST.web = lang.indexOf('ja') === 0 ? DEST.webJa : DEST.webEn;
 
   var ua = navigator.userAgent || '';
   var isIOS = /iPad|iPhone|iPod/.test(ua) ||
