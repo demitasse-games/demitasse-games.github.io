@@ -12860,7 +12860,7 @@ function showRingInfo() {
 const TRIAL_WAIT_S = 4;   // レベルアップの演出と、本部が立派になるのを見てから
 const TRIAL_X = TRIAL_LINKS.x || '';
 const TRIAL_PICS = ['warehouse', 'harbor', 'sushiya', 'lighthouse', 'fountain'];   // 製品版で置けるブロックの絵（倉庫・港・寿司屋・灯台・噴水）
-const trialFbURL = () => new URL('api/feedback', location.href).href;   // サイトの /pukapukafarm/api/feedback（FreeWebGame/site/_worker.js。元は publish/feedback_api.js）
+const trialFbURL = () => "https://demitasse-games.pages.dev/pukapukafarm/api/feedback";   // サイトの /pukapukafarm/api/feedback（FreeWebGame/site/_worker.js。元は publish/feedback_api.js）
 function trialTick(dt) {
   if (!TRIAL || S.trialSeen || S.isl.lv < TRIAL_LV) return;
   UI.trialW = (UI.trialW || 0) + dt; if (UI.trialW < TRIAL_WAIT_S) return;
@@ -12925,7 +12925,7 @@ function trialPro() {
 // 体験版：遊んだ人の最後の地点（島レベル・ガイドの目標の番号・遊んだ時間・指かマウスか・ことば）を、遊んでいるあいだ自動で送る。画面には何も出さない。
 // 受け口は人ごとに1行を上書きする（本人 2026-11-18「どこでやめたか知りたいから、自動で記録してほしい」「最後の地点の記録だけでいい」）。人の区別は、この端末のでたらめな番号だけ
 function trialTrack() {
-  if (!/(^|\.)demitasse-games\.com$/.test(location.hostname) && !window.PUKA_TRACK) return;   // サイトに置いたときだけ（遊べるページ・手元では送らない。テストは PUKA_TRACK）
+  if (!/(^|\.)demitasse-games\.(com|github\.io)$/.test(location.hostname) && !window.PUKA_TRACK) return;   // サイトに置いたときだけ（遊べるページ・手元では送らない。テストは PUKA_TRACK）
   let id = '';
   try { id = localStorage.getItem('puka-trial-id') || ''; if (!/^[a-z0-9]{16}$/.test(id)) { id = Array.from(crypto.getRandomValues(new Uint8Array(16)), x => (x % 36).toString(36)).join(''); localStorage.setItem('puka-trial-id', id); } } catch (e) { return; }
   const body = () => JSON.stringify({ kind: 'progress', id, lv: S.isl.lv, goal: S.isl.goal, play: Math.round(S.playT || 0), dev: TOUCH_APPLAY ? 'touch' : 'mouse', lang: LANG });
